@@ -31,6 +31,9 @@ public class EnderecoBean {
 	private IDaoEndereco idaoEndereco = new IDaoEnderecoImpl();
 
 	//////////////////////// metodos //////////////////////
+	
+
+	
 
 	//////////////////////// getters e setters /////////////////
 
