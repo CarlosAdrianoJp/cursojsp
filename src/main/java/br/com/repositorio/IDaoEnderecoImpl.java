@@ -10,7 +10,7 @@ import br.com.jpautil.JPAUtil;
 public class IDaoEnderecoImpl implements IDaoEndereco{
 
 	@Override
-	public Endereco consultarCep(String cep) {
+	public Endereco consultar(Long codigo) {
 		
 		
 		Endereco endereco = null;
@@ -19,7 +19,7 @@ public class IDaoEnderecoImpl implements IDaoEndereco{
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		
-		endereco = (Endereco) entityManager.createQuery("select e from Endereco e where e.cep = " + cep).getSingleResult();
+		endereco = (Endereco) entityManager.createQuery("SELECT * FROM endereco  where id = " + codigo).getSingleResult();
 		
 		transaction.commit();
 		entityManager.close();

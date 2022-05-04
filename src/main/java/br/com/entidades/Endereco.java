@@ -39,12 +39,12 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
-	public String getCodigoPostal() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCodigoPostal(String codigoPostal) {
-		this.cep = codigoPostal;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	public String getLogradouro() {

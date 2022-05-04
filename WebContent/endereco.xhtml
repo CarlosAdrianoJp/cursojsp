@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui = "http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>ENDERECOS</title>
+</h:head>
+
+<h:body>
+
+	<ui:include src="/menu.xhtml" />
+	
+	
+	<h:form id="formEndereco">
+
+
+		
+			<h:panelGrid columns="2">
+
+				<f:facet name="header">Enderecos</f:facet>
+
+				<h:outputLabel value="Id:" />
+				<h:inputText value="#{EnderecoBean.endereco.id}" readonly="true" />
+
+				<h:outputLabel value="CEP:  " />
+				<h:inputText value="#{EnderecoBean.endereco.cep}" />
+
+				<h:outputLabel value="Bairro: " />
+				<h:inputText value="#{EnderecoBean.endereco.bairro}"/>
+
+				<h:outputLabel value="Complemento: " />
+				<h:inputText value="#{EnderecoBean.endereco.complemento}" />
+
+				<h:outputLabel value="Cidade:  " />
+				<h:inputText value="#{EnderecoBean.endereco.localidade}" />
+				
+				<h:outputLabel value="IBGE:  " />
+				<h:inputText value="#{EnderecoBean.endereco.ibge}" />
+				
+				<h:outputLabel value="UF:  " />
+				<h:inputText value="#{EnderecoBean.endereco.uf}" />
+				
+				<h:outputLabel value="DDD:  " />
+				<h:inputText value="#{EnderecoBean.endereco.ddd}" />
+
+
+				<h:outputLabel />
+
+				<h:panelGroup>
+					<h:commandButton value="Novo" action="#{EnderecoBean.novo}" image="/resources/img/new_add_user_16734.png" title="Novo" />
+					<h:commandButton value="Salvar" style="margin-left:1cm;" action="#{EnderecoBean.salvar}" image="/resources/img/Save_37110.png" title="Salvar" />
+					<h:commandButton value="Remover" style="margin-left:1cm;" action="#{EnderecoBean.remove}" image="/resources/img/remove.png" title="Remover" />
+					<h:commandButton value="limpar" style="margin-left:1cm;" type="reset" image="/resources/img/clean.png" title="Limpar" />
+				</h:panelGroup>
+
+			</h:panelGrid>
+			
+			<h:dataTable value="#{EnderecoBean.enderecos}" var="end" border="3">
+			<f:facet name="header"> Lista de Enderecos</f:facet>
+			
+			<h:column>
+			<f:facet name="header"> ID: </f:facet>
+			<h:outputLabel value="#{end.id}"/>
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header"> Bairro: </f:facet>
+			<h:outputLabel value="#{end.bairro}"/>
+			</h:column>
+			
+			<h:column>
+			<f:facet name="header"> CEP: </f:facet>
+			<h:outputLabel value="#{end.cep}"/>
+			</h:column>
+			
+			
+			<h:column>
+				<f:facet name="header">Editar: </f:facet>
+				<h:commandLink title="Editar">
+					<f:setPropertyActionListener value="#{end}" target="#{EnderecoBean.endereco}" />
+						<h:graphicImage value="/resources/img/edit.png" title="Editar"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Remover: </f:facet>
+				<h:commandLink title="Editar" action="#{EnderecoBean.remove}">
+					<f:setPropertyActionListener value="#{lanc}" target="#{EnderecoBean.endereco}" />
+						<h:graphicImage value="/resources/img/remove_delete_exit_close_1545.png" title="Remover"/>
+				</h:commandLink>
+			</h:column>
+			
+			</h:dataTable>
+
+			<h:panelGrid columns="2">
+
+			<h:outputLabel value="Consultar Endereco: "/>
+			<h:inputText value="#{EnderecoBean.endereco.cep}">
+			<f:ajax event="blur" execute="@this" listener="#{EnderecoBean.consultarCep}" 
+			render="logradouro bairro localidade uf ibge ddd"/>
+			</h:inputText>
+			
+			
+			<h:outputLabel value="logradouro: "/>
+			<h:inputText value="#{EnderecoBean.endereco.logradouro}" id="logradouro"/>
+			
+			<h:outputLabel value="Bairro:  "/>
+			<h:inputText value="#{EnderecoBean.endereco.bairro}" id="bairro"/>
+			
+			<h:outputLabel value="localidade  "/>
+			<h:inputText value="#{EnderecoBean.endereco.localidade}" id="localidade"/>
+			
+			<h:outputLabel value="UF:  "/>
+			<h:inputText value="#{EnderecoBean.endereco.uf}" id="uf"/>
+			
+			<h:outputLabel value="IBGE:  "/>
+			<h:inputText value="#{EnderecoBean.endereco.ibge}" id="ibge"/>
+			
+			<h:outputLabel value="DDD:   "/>
+			<h:inputText value="#{EnderecoBean.endereco.ddd}" id="ddd"/>
+			
+			</h:panelGrid>
+
+	</h:form>
+
+</h:body>
+
+</html>

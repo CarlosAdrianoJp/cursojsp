@@ -18,6 +18,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import br.com.dao.DaoGenerico;
 import br.com.entidades.Endereco;
 import br.com.entidades.Pessoa;
@@ -93,7 +95,13 @@ public class PessoaBean {
 			jsonCep.append(cep);
 		}
 		
-		System.out.println(jsonCep);
+		Endereco gsonAux = new Gson().fromJson(jsonCep.toString(), Endereco.class);
+		
+		
+		
+		
+		System.out.println(gsonAux);
+		
 	} catch (Exception e) {
 		e.printStackTrace();
 		mostrarMsg("erro ao consultar o cep");
