@@ -21,10 +21,6 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	 
-	@ManyToOne(optional = false)
-	@ForeignKey(name = "endereco_fk")
-	private Endereco habitacao;
 	
 
 	private String nome;
@@ -170,14 +166,8 @@ public class Pessoa implements Serializable {
 		this.cep = cep;
 	}
 	
-
-	public Endereco getHabitacao() {
-		return habitacao;
-	}
-
-	public void setHabitacao(Endereco habitacao) {
-		this.habitacao = habitacao;
-	}
+	
+	
 
 	@Override
 	public int hashCode() {

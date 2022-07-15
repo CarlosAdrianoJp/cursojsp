@@ -23,6 +23,8 @@ import com.google.gson.Gson;
 import br.com.dao.DaoGenerico;
 import br.com.entidades.Endereco;
 import br.com.entidades.Pessoa;
+import br.com.repositorio.IDaoEndereco;
+import br.com.repositorio.IDaoEnderecoImpl;
 import br.com.repositorio.IDaoPessoa;
 import br.com.repositorio.IDaoPessoaImpl;
 
@@ -31,26 +33,25 @@ import br.com.repositorio.IDaoPessoaImpl;
 public class PessoaBean {
 
 	private Pessoa pessoa = new Pessoa();
-	
-	// private Endereco endereco = new Endereco();
-	
+
 	private DaoGenerico<Pessoa> daoGenerico = new DaoGenerico<Pessoa>();
+
 	
+
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
-	
+
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
-	
-	
+
 	////////////////////// metodos ////////////////////////
-	
+
 	public String salvar() {
-		
+
 		pessoa = daoGenerico.merge(pessoa);
 		carregarPessoas();
 		mostrarMsg("Cadastrado com Sucesso");
 		return "";
 	}
-	
+
 	private void mostrarMsg(String msg) {
 
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -63,13 +64,13 @@ public class PessoaBean {
 		mostrarMsg("Criando um nova pessoa");
 		return "";
 	}
-	
+
 	public String limpar() {
 		pessoa = new Pessoa();
 		mostrarMsg("Formulario limpo");
 		return "";
 	}
-	
+
 	public String remove() {
 		daoGenerico.deletePorId(pessoa);
 		pessoa = new Pessoa();
@@ -77,82 +78,81 @@ public class PessoaBean {
 		mostrarMsg("Removido com Sucesso");
 		return "";
 	}
-	
+
+	public void pegarEndereco() {
+		iDaoEndereco.consultar(endereco.getId());
+	}
+
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 
-	try {
-		URL url = new URL("https://viacep.com.br/ws/"+ pessoa.getCep() +"/json");
-		
-		URLConnection connection = url.openConnection();
-		InputStream is = connection.getInputStream();
-		BufferedReader bf = new BufferedReader( new InputStreamReader(is, "UTF-8"));
-		
-		String cep = "";
-		StringBuilder jsonCep = new StringBuilder();
-		
-		while ((cep = bf.readLine()) != null) {
-		
-			jsonCep.append(cep);
+		try {
+			URL url = new URL("https://viacep.com.br/ws/" + pessoa.getCep() + "/json");
+
+			URLConnection connection = url.openConnection();
+			InputStream is = connection.getInputStream();
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+			String cep = "";
+			StringBuilder jsonCep = new StringBuilder();
+
+			while ((cep = bf.readLine()) != null) {
+
+				jsonCep.append(cep);
+			}
+
+			Endereco gsonAux = new Gson().fromJson(jsonCep.toString(), Endereco.class);
+
+			System.out.println(gsonAux);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			mostrarMsg("erro ao consultar o cep");
 		}
-		
-		Endereco gsonAux = new Gson().fromJson(jsonCep.toString(), Endereco.class);
-		
-		
-		
-		
-		System.out.println(gsonAux);
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-		mostrarMsg("erro ao consultar o cep");
+
 	}
-	
-	}
-	
+
 	@PostConstruct
 	public void carregarPessoas() {
 		pessoas = daoGenerico.getListEntity(Pessoa.class);
 	}
-	
+
 	public String logar() {
-		
+
 		Pessoa pessoaUser = iDaoPessoa.consultarUsuario(pessoa.getLogin(), pessoa.getSenha());
-		
-		if(pessoaUser != null) {// achou o usuario
+
+		if (pessoaUser != null) {// achou o usuario
 			// adicionar o usuario na sessao usuarioLogado
 			FacesContext context = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = context.getExternalContext();
-			
+
 			HttpServletRequest req = (HttpServletRequest) externalContext.getRequest();
 			HttpSession session = req.getSession();
-			
+
 			session.setAttribute("usuariologado", pessoaUser);
-			
+
 			return "primeirapagina.jsf";
 		}
-		
+
 		return "index.jsf";
 	}
-	
+
 	public boolean permiteAcesso(String acesso) {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 
 		HttpServletRequest req = (HttpServletRequest) externalContext.getRequest();
 		HttpSession session = req.getSession();
-		
+
 		Pessoa pessoaUser = (Pessoa) session.getAttribute("usuariologado");
-		
-		
+
 		return pessoaUser.getCargo().equals(acesso);
-		
+
 	}
-	
-	
-	//////////////////////////// getters e setters/////////////////////////////////////
-	
-	
+
+	//////////////////////////// getters e
+	//////////////////////////// setters/////////////////////////////////////
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -172,7 +172,7 @@ public class PessoaBean {
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	
-	
-	
+
+
+
 }

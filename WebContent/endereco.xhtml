@@ -22,29 +22,36 @@
 
 				<f:facet name="header">Enderecos</f:facet>
 
-				<h:outputLabel value="Id:" />
-				<h:inputText value="#{EnderecoBean.endereco.id}" readonly="true" />
+	
 
-				<h:outputLabel value="CEP:  " />
-				<h:inputText value="#{EnderecoBean.endereco.cep}" />
-
-				<h:outputLabel value="Bairro: " />
-				<h:inputText value="#{EnderecoBean.endereco.bairro}"/>
-
-				<h:outputLabel value="Complemento: " />
-				<h:inputText value="#{EnderecoBean.endereco.complemento}" />
-
-				<h:outputLabel value="Cidade:  " />
-				<h:inputText value="#{EnderecoBean.endereco.localidade}" />
 				
-				<h:outputLabel value="IBGE:  " />
-				<h:inputText value="#{EnderecoBean.endereco.ibge}" />
-				
-				<h:outputLabel value="UF:  " />
-				<h:inputText value="#{EnderecoBean.endereco.uf}" />
-				
-				<h:outputLabel value="DDD:  " />
-				<h:inputText value="#{EnderecoBean.endereco.ddd}" />
+
+			<h:outputLabel value="Consultar Endereco: "/>
+			<h:inputText value="#{EnderecoBean.endereco.cep}">
+			<f:ajax event="blur" execute="@this" listener="#{EnderecoBean.consultarCep}" 
+			render="logradouro bairro localidade uf ibge ddd"/>
+			</h:inputText>
+			
+			
+			<h:outputLabel value="logradouro: "/>
+			<h:inputText value="#{EnderecoBean.endereco.logradouro}" id="logradouro"/>
+			
+			<h:outputLabel value="Bairro:  "/>
+			<h:inputText value="#{EnderecoBean.endereco.bairro}" id="bairro"/>
+			
+			<h:outputLabel value="localidade  "/>
+			<h:inputText value="#{EnderecoBean.endereco.localidade}" id="localidade"/>
+			
+			<h:outputLabel value="UF:  "/>
+			<h:inputText value="#{EnderecoBean.endereco.uf}" id="uf"/>
+			
+			<h:outputLabel value="IBGE:  "/>
+			<h:inputText value="#{EnderecoBean.endereco.ibge}" id="ibge"/>
+			
+			<h:outputLabel value="DDD:   "/>
+			<h:inputText value="#{EnderecoBean.endereco.ddd}" id="ddd"/>
+			
+			
 
 
 				<h:outputLabel />
@@ -72,6 +79,11 @@
 			</h:column>
 			
 			<h:column>
+			<f:facet name="header"> Endereço: </f:facet>
+			<h:outputLabel value="#{end.logradouro}"/>
+			</h:column>
+			
+			<h:column>
 			<f:facet name="header"> CEP: </f:facet>
 			<h:outputLabel value="#{end.cep}"/>
 			</h:column>
@@ -95,34 +107,7 @@
 			
 			</h:dataTable>
 
-			<h:panelGrid columns="2">
-
-			<h:outputLabel value="Consultar Endereco: "/>
-			<h:inputText value="#{EnderecoBean.endereco.cep}">
-			<f:ajax event="blur" execute="@this" listener="#{EnderecoBean.consultarCep}" 
-			render="logradouro bairro localidade uf ibge ddd"/>
-			</h:inputText>
 			
-			
-			<h:outputLabel value="logradouro: "/>
-			<h:inputText value="#{EnderecoBean.endereco.logradouro}" id="logradouro"/>
-			
-			<h:outputLabel value="Bairro:  "/>
-			<h:inputText value="#{EnderecoBean.endereco.bairro}" id="bairro"/>
-			
-			<h:outputLabel value="localidade  "/>
-			<h:inputText value="#{EnderecoBean.endereco.localidade}" id="localidade"/>
-			
-			<h:outputLabel value="UF:  "/>
-			<h:inputText value="#{EnderecoBean.endereco.uf}" id="uf"/>
-			
-			<h:outputLabel value="IBGE:  "/>
-			<h:inputText value="#{EnderecoBean.endereco.ibge}" id="ibge"/>
-			
-			<h:outputLabel value="DDD:   "/>
-			<h:inputText value="#{EnderecoBean.endereco.ddd}" id="ddd"/>
-			
-			</h:panelGrid>
 
 	</h:form>
 

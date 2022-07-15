@@ -73,5 +73,19 @@ public class DaoGenerico<E> {
 
 		return retorno;
 	}
+	
+	public void buscaPorId(E entidade) {
+
+		EntityManager entityManager = JPAUtil.getEntityManager();
+
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+
+		Object id = JPAUtil.getPrimaryKey(entidade);
+		entityManager.createQuery("select from " + entidade.getClass().getCanonicalName() + " where id = " + id)
+				.getSingleResult();
+		transaction.commit();
+		entityManager.close();
+	}
 
 }

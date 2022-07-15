@@ -12,6 +12,8 @@
 		<class>br.com.entidades.Pessoa</class>
 		<class>br.com.entidades.Lancamento</class>
 		<class>br.com.entidades.Endereco</class>
+		<class>br.com.entidades.Estados</class>
+		<class>br.com.entidades.Cidades</class>
 		<shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
 
 
