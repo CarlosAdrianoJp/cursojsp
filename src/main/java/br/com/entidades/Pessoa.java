@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -49,6 +50,9 @@ public class Pessoa implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento = new Date();
+	
+	@Transient
+	private Estados estados;
 
 	public Pessoa() {
 
@@ -166,7 +170,13 @@ public class Pessoa implements Serializable {
 		this.cep = cep;
 	}
 	
+	public Estados getEstados() {
+		return estados;
+	}
 	
+	public void setEstados(Estados estado) {
+		this.estados = estado;
+	}
 	
 
 	@Override

@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -41,6 +42,8 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
+	
+	private List<SelectItem> estados;
 
 	////////////////////// metodos ////////////////////////
 
@@ -79,10 +82,14 @@ public class PessoaBean {
 		return "";
 	}
 
+	
+	/*
 	public void pegarEndereco() {
 		iDaoEndereco.consultar(endereco.getId());
 	}
 
+	*/
+	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 
 		try {
@@ -174,5 +181,13 @@ public class PessoaBean {
 	}
 
 
+	public List<SelectItem> getEstados() {
+		estados = iDaoPessoa.listaEstados();
+		return estados;
+	}
+	
+	public void setEstados(List<SelectItem> estados) {
+		this.estados = estados;
+	}
 
 }
