@@ -156,6 +156,8 @@ public class PessoaBean {
 		return pessoaUser.getCargo().equals(acesso);
 
 	}
+	
+	
 
 	//////////////////////////// getters e
 	//////////////////////////// setters/////////////////////////////////////
@@ -190,4 +192,15 @@ public class PessoaBean {
 		this.estados = estados;
 	}
 
+	
+
+	public void carregaCidades(AjaxBehaviorEvent event) {
+		
+		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
+		
+		if(codigoEstado != null) {
+			System.out.println(codigoEstado);
+		}
+		
+	}
 }
